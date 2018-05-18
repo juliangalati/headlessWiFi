@@ -1,0 +1,15 @@
+[Unit]
+Description=Configure wifi
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/start-wifi-connect
+Restart=on-failure
+StandardOutput=syslog
+SyslogIdentifier=wifi-connect
+Type=idle
+Environment=PORTAL_SSID=PetCare-WiFi
+
+[Install]
+WantedBy=multi-user.target
