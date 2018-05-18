@@ -12,10 +12,10 @@ set -o pipefail
 #trace what gets executed
 set -x
 
-#if [[ $EUID -ne 0 ]]; then
-#   echo "This script must be run as root" 1>&2
-#   exit 1
-#fi
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root" 1>&2
+   exit 1
+fi
 
 
 # Set magic variables for current file & dir
