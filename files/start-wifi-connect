@@ -1,15 +1,24 @@
 #!/bin/bash
 
-# See if networkmanager has a connection
-# Returns 0 if connected, 1 if not connected
-# --timeout en segundos, da tiempo a la auto conexión
-nm-online --timeout 10
+# WIFI_CONNECT_TIMEOUT definido en wifi-connect.service
+# SCRIPT_TIMEOUT definido en wifi-connect.service
+while true; do
 
-not_connected=$?
+	# See if networkmanager has a connection
+	# Returns 0 if connected, 1 if not connected
+	# --timeout en segundos, para esperar la auto conexión
+	nm-online --timeout 10
 
-if [ $not_connected -eq 1 ]; then
-  echo Not connected
-  wifi-connect -a 60
-else
-  echo Connected
-fi
+	not_connected=$?
+
+	if [ $not_connected -eq 1 ]; then
+	  echo Not connected
+	  # se corre el servicio por x segundos, y se desconecta para ver si retornó la conexión original
+	  wifi-connect -a ${WIFI_CONNECT_TIMEOUT}
+	else
+	  echo Connected
+	  # tiempo de espera para volver a ejecutar el script
+	  sleep ${SCRIPT_TIMEOUT}
+	fi
+
+done

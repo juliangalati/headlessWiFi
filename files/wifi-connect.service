@@ -10,6 +10,8 @@ StandardOutput=syslog
 SyslogIdentifier=wifi-connect
 Type=idle
 Environment=PORTAL_SSID=PetCare-WiFi
+Environment=WIFI_CONNECT_TIMEOUT=60
+Environment=SCRIPT_TIMEOUT=90
 
 [Install]
 WantedBy=multi-user.target
