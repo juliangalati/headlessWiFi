@@ -2,17 +2,14 @@
 
 # See if networkmanager has a connection
 # Returns 0 if connected, 1 if not connected
+# --timeout en segundos, da tiempo a la auto conexión
 nm-online --timeout 10
 
 not_connected=$?
 
 if [ $not_connected -eq 1 ]; then
   echo Not connected
-  wifi-connect
-
-  # Now see if we're connected
-  # systemd will run this script again if not
-  nm-online --timeout 10
+  wifi-connect -a 60
 else
   echo Connected
 fi
